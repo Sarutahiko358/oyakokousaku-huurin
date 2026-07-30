@@ -1,0 +1,150 @@
+:root {
+  --sky: #7fd4e6;
+  --sky-light: #eaf9fc;
+  --sun: #ffd85e;
+  --sun-dark: #f5b301;
+  --ink: #2b3a42;
+  --card-bg: #ffffff;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Hiragino Kaku Gothic ProN", "Yu Gothic", "Meiryo", sans-serif;
+  background: linear-gradient(180deg, var(--sky) 0%, var(--sky-light) 260px, #f4faf9 100%);
+  color: var(--ink);
+  min-height: 100vh;
+}
+
+.app-header {
+  text-align: center;
+  padding: 24px 16px 12px;
+}
+
+.app-header h1 {
+  margin: 0;
+  font-size: clamp(1.4rem, 5vw, 2rem);
+  color: #17505f;
+}
+
+.subtitle {
+  margin: 6px 0 0;
+  font-size: 1rem;
+  color: #2f6b78;
+}
+
+.viewer {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 8px 16px 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.progress-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.progress-bar {
+  width: 100%;
+  height: 10px;
+  background: rgba(255, 255, 255, 0.7);
+  border-radius: 999px;
+  overflow: hidden;
+  border: 1px solid #ffffffaa;
+}
+
+.progress-fill {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, var(--sun-dark), var(--sun));
+  transition: width 0.25s ease;
+}
+
+.progress-label {
+  margin: 0;
+  text-align: right;
+  font-size: 0.9rem;
+  color: #2f6b78;
+  font-weight: bold;
+}
+
+.step-card {
+  background: var(--card-bg);
+  border-radius: 20px;
+  box-shadow: 0 8px 24px rgba(23, 80, 95, 0.15);
+  overflow: hidden;
+}
+
+.step-image {
+  display: block;
+  width: 100%;
+  max-height: 60vh;
+  object-fit: contain;
+  background: #fbf6df;
+}
+
+.step-info {
+  padding: 18px 20px 24px;
+}
+
+.step-badge {
+  display: inline-block;
+  margin: 0 0 10px;
+  padding: 4px 14px;
+  border-radius: 999px;
+  background: var(--sun);
+  color: #6b4b00;
+  font-weight: bold;
+  font-size: 0.95rem;
+}
+
+.step-text {
+  margin: 0;
+  font-size: 1.15rem;
+  line-height: 1.7;
+  white-space: pre-wrap;
+}
+
+.nav-buttons {
+  display: flex;
+  gap: 12px;
+}
+
+.nav-btn {
+  flex: 1;
+  padding: 16px 12px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  border: none;
+  border-radius: 14px;
+  background: #17505f;
+  color: #fff;
+  cursor: pointer;
+  transition: transform 0.1s ease, background 0.2s ease;
+}
+
+.nav-btn:active {
+  transform: scale(0.97);
+}
+
+.nav-btn:disabled {
+  background: #b9c7ca;
+  cursor: not-allowed;
+}
+
+@media (max-width: 420px) {
+  .step-text {
+    font-size: 1.05rem;
+  }
+  .nav-btn {
+    font-size: 1rem;
+    padding: 14px 10px;
+  }
+}
