@@ -105,6 +105,7 @@ const progressFill = document.getElementById("progressFill");
 const progressLabel = document.getElementById("progressLabel");
 const prevBtn = document.getElementById("prevBtn");
 const nextBtn = document.getElementById("nextBtn");
+const qrBlock = document.getElementById("qrBlock");
 
 function render() {
   const step = STEPS[current];
@@ -119,6 +120,8 @@ function render() {
 
   prevBtn.disabled = current === 0;
   nextBtn.disabled = current === STEPS.length - 1;
+
+  qrBlock.style.display = current === 0 ? "flex" : "none";
 }
 
 function goPrev() {
