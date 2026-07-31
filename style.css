@@ -178,11 +178,72 @@ body.toc-open {
   font-size: 0.95rem;
 }
 
+.step-task-label {
+  margin: 1px 0 5px;
+  color: #2f6b78;
+  font-size: 0.82rem;
+  font-weight: bold;
+  letter-spacing: 0.05em;
+}
+
+.step-task-label[hidden] {
+  display: none;
+}
+
 .step-text {
   margin: 0;
   font-size: 1.15rem;
   line-height: 1.7;
   white-space: pre-wrap;
+}
+
+.step-guidance {
+  margin-top: 16px;
+  padding: 13px 15px;
+  border: 1px solid #c9e1e6;
+  border-radius: 14px;
+  background: #f4fbfc;
+}
+
+.step-guidance[hidden] {
+  display: none;
+}
+
+.step-guidance-label {
+  display: block;
+  margin-bottom: 5px;
+  color: #17505f;
+  font-size: 0.92rem;
+}
+
+.step-guidance-text {
+  margin: 0;
+  font-size: 1rem;
+  line-height: 1.65;
+  white-space: pre-wrap;
+}
+
+.step-guidance--point {
+  border-color: #bddfec;
+  background: #eef8ff;
+}
+
+.step-guidance--warning {
+  border-color: #f0c775;
+  background: #fff4df;
+}
+
+.step-guidance--warning .step-guidance-label {
+  color: #7a4b00;
+}
+
+.step-guidance--later {
+  border-color: #b9ddc4;
+  background: #eef9f2;
+}
+
+.step-guidance--later .step-guidance-label {
+  color: #2f6842;
 }
 
 .nav-buttons {
@@ -400,6 +461,15 @@ body.toc-open {
 
   .step-text {
     font-size: 1.05rem;
+  }
+
+  .step-guidance {
+    margin-top: 14px;
+    padding: 12px 13px;
+  }
+
+  .step-guidance-text {
+    font-size: 0.96rem;
   }
 
   .nav-btn {

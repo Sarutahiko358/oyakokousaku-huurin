@@ -1,21 +1,21 @@
 const STEP_TEXTS = {
   "images/cover.jpg": "おしゃれな風鈴を作ろう",
 
-  "images/page/Page (1).jpg": "1cm間隔で9本の線をひく\n後から切る目印です",
+  "images/page/Page (1).jpg": "1cm間隔で9本の線をひく",
 
-  "images/page/Page (2).jpg": "下から2本を除いて図の様に線をひく\n下の2本は別用途に使います",
+  "images/page/Page (2).jpg": "下から2本を除いて図の様に線をひく",
 
-  "images/page/Page (3).jpg": "表面に図の様に線を引き、中央が分かるように印を付ける\n後から穴を開ける目印です",
+  "images/page/Page (3).jpg": "表面に図の様に線を引き、中央が分かるように印を付ける",
 
   "images/page/Page (4).jpg": "柄の色紙を用意する",
 
-  "images/page/Page (5).jpg": "柄色紙の裏面に線をひく（赤色の線）\n9cm×1cmのものは、9cm×7cmのものと組み合わせて、9cm×8cmのものと同じように使います",
+  "images/page/Page (5).jpg": "柄色紙の裏面に線をひく（赤色の線）",
 
   "images/page/Page (6).jpg": "5の赤線を切り取る",
 
-  "images/page/Page (7).jpg": "図の様に6をA外側　表面に貼り付ける\n端がめくれやすいので、しっかり貼り付けてください",
+  "images/page/Page (7).jpg": "図の様に6をA外側　表面に貼り付ける",
 
-  "images/page/Page (8).jpg": "外側裏面（全面線がある方）を向け図の様に切る\n下から2本は後から使います",
+  "images/page/Page (8).jpg": "外側裏面（全面線がある方）を向け図の様に切る",
 
   "images/page/Page (9).jpg": "3本位ずつそろえ、一つ穴パンチで中央の印が真ん中に来るように置き\n穴を開ける",
 
@@ -23,9 +23,9 @@ const STEP_TEXTS = {
 
   "images/page/Page (11).jpg": "1cm間隔で線をひき、縦にも図の様に線をひく",
 
-  "images/page/Page (12).jpg": "表面に図の様に線を引き、中央が分かるように印を付ける\n後ほど穴を開ける目印です",
+  "images/page/Page (12).jpg": "表面に図の様に線を引き、中央が分かるように印を付ける",
 
-  "images/page/Page (13).jpg": "キラキラ色紙の裏面に5と同様に線を引く\n手順5と同じ方法で、8.5cm×8cm、8.5cm×7cm、8.5cm×1cmになるように線を引いてください",
+  "images/page/Page (13).jpg": "キラキラ色紙の裏面に5と同様に線を引く",
 
   "images/page/Page (14).jpg": "13の赤線を切り取る",
 
@@ -41,7 +41,7 @@ const STEP_TEXTS = {
 
   "images/page/Page (20).jpg": "内側のふうりんも同様に作る",
 
-  "images/page/Page (21・22).jpg": "21　8の下から2本目の内の1本を用意する\n22　1.2cm間隔で16分割する\nのりしろを残して、16等分してください。\n4つおきに印を付けておくと、後で貼り付ける位置が分かりやすくなります。",
+  "images/page/Page (21・22).jpg": "21　8の下から2本目の内の1本を用意する\n22　1.2cm間隔で16分割する",
 
   "images/page/Page (23).jpg": "22の矢印の所にボンドを付け\nメモリが入っている方を中側にして\n輪にする",
 
@@ -72,14 +72,118 @@ const STEP_TEXTS = {
   "images/page/Page (裏表紙).jpg": "これで、ふうりんの完成です！\nお疲れ様でした。",
 };
 
+const STEP_GUIDANCE = {
+  "images/page/Page (1).jpg": {
+    type: "point",
+    label: "💡 ポイント",
+    text: "後から切る目印です。",
+  },
+  "images/page/Page (2).jpg": {
+    type: "later",
+    label: "📌 あとで使います",
+    text: "下の2本は別用途に使います。",
+  },
+  "images/page/Page (3).jpg": {
+    type: "point",
+    label: "💡 ポイント",
+    text: "後から穴を開ける目印です。",
+  },
+  "images/page/Page (5).jpg": {
+    type: "point",
+    label: "💡 ポイント",
+    text: "9cm×1cmのものは、9cm×7cmのものと組み合わせて、9cm×8cmのものと同じように使います。",
+  },
+  "images/page/Page (7).jpg": {
+    type: "warning",
+    label: "⚠️ 注意",
+    text: "端がめくれやすいので、しっかり貼り付けてください。",
+  },
+  "images/page/Page (8).jpg": {
+    type: "later",
+    label: "📌 あとで使います",
+    text: "下から2本は後から使います。",
+  },
+  "images/page/Page (12).jpg": {
+    type: "point",
+    label: "💡 ポイント",
+    text: "後ほど穴を開ける目印です。",
+  },
+  "images/page/Page (13).jpg": {
+    type: "point",
+    label: "💡 ポイント",
+    text: "手順5と同じ方法で、8.5cm×8cm、8.5cm×7cm、8.5cm×1cmになるように線を引いてください。",
+  },
+  "images/page/Page (21・22).jpg": {
+    type: "point",
+    label: "💡 ポイント",
+    text: "のりしろを残して、16等分してください。\n4つおきに印を付けておくと、後で貼り付ける位置が分かりやすくなります。",
+  },
+};
+
 if (typeof SLIDES !== "undefined") {
   SLIDES.forEach((slide) => {
     if (Object.prototype.hasOwnProperty.call(STEP_TEXTS, slide.page)) {
       slide.text = STEP_TEXTS[slide.page];
     }
+    slide.guidance = STEP_GUIDANCE[slide.page] || null;
   });
 
-  if (typeof render === "function") {
+  const stepInfo = document.querySelector(".step-info");
+  const stepBadgeElement = document.getElementById("stepBadge");
+  const stepTextElement = document.getElementById("stepText");
+  const stepImageElement = document.getElementById("stepImage");
+
+  if (stepInfo && stepBadgeElement && stepTextElement && stepImageElement) {
+    const taskLabel = document.createElement("p");
+    taskLabel.className = "step-task-label";
+    taskLabel.textContent = "やること";
+    stepInfo.insertBefore(taskLabel, stepTextElement);
+
+    const guidanceBox = document.createElement("aside");
+    guidanceBox.className = "step-guidance";
+    guidanceBox.hidden = true;
+    guidanceBox.setAttribute("aria-live", "polite");
+
+    const guidanceLabel = document.createElement("strong");
+    guidanceLabel.className = "step-guidance-label";
+
+    const guidanceText = document.createElement("p");
+    guidanceText.className = "step-guidance-text";
+
+    guidanceBox.append(guidanceLabel, guidanceText);
+    stepInfo.appendChild(guidanceBox);
+
+    const updateGuidance = () => {
+      const currentPage = stepImageElement.getAttribute("src") || "";
+      const slide = SLIDES.find((item) => item.page === currentPage);
+      const isRegularStep = Boolean(slide && Number.isInteger(slide.start));
+
+      taskLabel.hidden = !isRegularStep;
+
+      if (!slide || !slide.guidance || !isRegularStep) {
+        guidanceBox.hidden = true;
+        guidanceBox.className = "step-guidance";
+        guidanceLabel.textContent = "";
+        guidanceText.textContent = "";
+        return;
+      }
+
+      guidanceBox.hidden = false;
+      guidanceBox.className = `step-guidance step-guidance--${slide.guidance.type}`;
+      guidanceLabel.textContent = slide.guidance.label;
+      guidanceText.textContent = slide.guidance.text;
+    };
+
+    new MutationObserver(updateGuidance).observe(stepImageElement, {
+      attributes: true,
+      attributeFilter: ["src"],
+    });
+
+    if (typeof render === "function") {
+      render();
+    }
+    updateGuidance();
+  } else if (typeof render === "function") {
     render();
   }
 }
