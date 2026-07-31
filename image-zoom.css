@@ -46,26 +46,26 @@
 }
 
 .zoom-hint {
-  position: absolute;
-  left: 50%;
-  bottom: 12px;
-  z-index: 2;
-  transform: translateX(-50%);
-  margin: 0;
+  width: max-content;
+  max-width: calc(100% - 32px);
+  margin: 12px auto 0;
   padding: 6px 10px;
   border-radius: 999px;
   background: rgba(23, 80, 95, 0.82);
   color: #fff;
   font-size: 0.78rem;
   font-weight: bold;
+  line-height: 1.4;
+  text-align: center;
   pointer-events: none;
   opacity: 0.92;
-  transition: opacity 0.2s ease;
+  transition: opacity 0.2s ease, visibility 0.2s ease;
   white-space: nowrap;
 }
 
-.image-stage.is-zoomed .zoom-hint {
+.zoom-hint.is-hidden {
   opacity: 0;
+  visibility: hidden;
 }
 
 @media (hover: hover) and (pointer: fine) {
