@@ -28,7 +28,9 @@
   hint.className = "zoom-hint";
   hint.textContent = "2本指で拡大できます";
 
-  stage.append(resetButton, hint);
+  // リセットボタンは画像上、拡大案内は画像の直下に置き、画像内容と重ならないようにする。
+  stage.append(resetButton);
+  stage.insertAdjacentElement("afterend", hint);
 
   function clamp(value, min, max) {
     return Math.min(max, Math.max(min, value));
@@ -59,6 +61,7 @@
     image.style.transform = `translate3d(${translateX}px, ${translateY}px, 0) scale(${scale})`;
     const zoomed = scale > 1.01;
     stage.classList.toggle("is-zoomed", zoomed);
+    hint.classList.toggle("is-hidden", zoomed);
 
     if (!zoomed) {
       translateX = 0;
@@ -75,6 +78,7 @@
     panning = false;
     suppressSwipe = false;
     stage.classList.remove("is-zoomed", "is-panning");
+    hint.classList.remove("is-hidden");
     image.style.transform = "translate3d(0, 0, 0) scale(1)";
   }
 
