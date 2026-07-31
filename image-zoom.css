@@ -1,0 +1,88 @@
+.app-footer {
+  padding: 4px 16px 28px;
+}
+
+.image-stage {
+  touch-action: pan-y;
+}
+
+.step-image {
+  transform: translate3d(0, 0, 0) scale(1);
+  transform-origin: center center;
+  will-change: transform;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+.image-stage.is-zoomed {
+  touch-action: none;
+  cursor: grab;
+}
+
+.image-stage.is-panning {
+  cursor: grabbing;
+}
+
+.zoom-reset-btn {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  z-index: 3;
+  display: none;
+  padding: 8px 12px;
+  border: 1px solid rgba(23, 80, 95, 0.24);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.94);
+  color: #17505f;
+  font: inherit;
+  font-size: 0.85rem;
+  font-weight: bold;
+  box-shadow: 0 4px 12px rgba(23, 80, 95, 0.16);
+  cursor: pointer;
+}
+
+.image-stage.is-zoomed .zoom-reset-btn {
+  display: block;
+}
+
+.zoom-hint {
+  position: absolute;
+  left: 50%;
+  bottom: 12px;
+  z-index: 2;
+  transform: translateX(-50%);
+  margin: 0;
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: rgba(23, 80, 95, 0.82);
+  color: #fff;
+  font-size: 0.78rem;
+  font-weight: bold;
+  pointer-events: none;
+  opacity: 0.92;
+  transition: opacity 0.2s ease;
+  white-space: nowrap;
+}
+
+.image-stage.is-zoomed .zoom-hint {
+  opacity: 0;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .zoom-hint {
+    display: none;
+  }
+}
+
+@media (max-width: 420px) {
+  .app-footer {
+    padding-top: 2px;
+    padding-bottom: 22px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .zoom-hint {
+    transition: none;
+  }
+}
