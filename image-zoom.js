@@ -40,6 +40,10 @@
     return Math.hypot(dx, dy);
   }
 
+  function isResetControl(target) {
+    return target instanceof Element && Boolean(target.closest(".zoom-reset-btn"));
+  }
+
   function clampTranslation() {
     const scaledWidth = image.offsetWidth * scale;
     const scaledHeight = image.offsetHeight * scale;
@@ -74,7 +78,22 @@
     image.style.transform = "translate3d(0, 0, 0) scale(1)";
   }
 
-  resetButton.addEventListener("click", resetZoom);
+  function handleReset(event) {
+    event.preventDefault();
+    event.stopPropagation();
+    resetZoom();
+  }
+
+  // 拡大中の親要素のパン操作より、リセットボタンの操作を優先する。
+  resetButton.addEventListener("pointerdown", (event) => {
+    event.stopPropagation();
+  });
+  resetButton.addEventListener("touchstart", (event) => {
+    event.stopPropagation();
+  }, { passive: true });
+  resetButton.addEventListener("touchend", handleReset, { passive: false });
+  resetButton.addEventListener("click", handleReset);
+
   image.addEventListener("load", resetZoom);
 
   new MutationObserver((mutations) => {
@@ -82,6 +101,8 @@
   }).observe(image, { attributes: true, attributeFilter: ["src"] });
 
   stage.addEventListener("touchstart", (event) => {
+    if (isResetControl(event.target)) return;
+
     if (event.touches.length === 2) {
       pinching = true;
       panning = false;
@@ -108,6 +129,8 @@
   }, { passive: false });
 
   stage.addEventListener("touchmove", (event) => {
+    if (isResetControl(event.target)) return;
+
     if (event.touches.length === 2 && pinching) {
       const distance = touchDistance(event.touches);
       scale = clamp(pinchStartScale * (distance / Math.max(1, pinchStartDistance)), MIN_SCALE, MAX_SCALE);
@@ -127,6 +150,8 @@
   }, { passive: false });
 
   stage.addEventListener("touchend", (event) => {
+    if (isResetControl(event.target)) return;
+
     if (suppressSwipe || pinching || panning || scale > 1.01) {
       event.preventDefault();
       event.stopImmediatePropagation();
@@ -154,6 +179,8 @@
   }, { passive: false });
 
   stage.addEventListener("touchcancel", (event) => {
+    if (isResetControl(event.target)) return;
+
     if (suppressSwipe || scale > 1.01) {
       event.preventDefault();
       event.stopImmediatePropagation();
