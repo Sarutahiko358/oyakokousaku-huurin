@@ -82,12 +82,59 @@ body {
   overflow: hidden;
 }
 
+.image-stage {
+  position: relative;
+  display: grid;
+  place-items: center;
+  min-height: min(62vh, 540px);
+  overflow: hidden;
+  background: #fbf6df;
+  touch-action: pan-y;
+}
+
 .step-image {
   display: block;
   width: 100%;
-  max-height: 60vh;
+  max-height: 68vh;
   object-fit: contain;
   background: #fbf6df;
+}
+
+.image-stage.is-loading .step-image {
+  visibility: hidden;
+}
+
+.image-status {
+  position: absolute;
+  inset: auto 16px 18px;
+  margin: 0;
+  padding: 10px 14px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.94);
+  color: #17505f;
+  text-align: center;
+  font-size: 0.92rem;
+  font-weight: bold;
+  box-shadow: 0 4px 14px rgba(23, 80, 95, 0.14);
+}
+
+.image-stage.is-loading::before {
+  content: "";
+  width: 44px;
+  height: 44px;
+  border: 5px solid rgba(23, 80, 95, 0.18);
+  border-top-color: #17505f;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+.image-stage.has-warning .image-status {
+  color: #6b4b00;
+  background: rgba(255, 239, 184, 0.96);
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
 }
 
 .step-info {
@@ -163,11 +210,35 @@ body {
 }
 
 @media (max-width: 420px) {
+  .app-header {
+    padding-top: 18px;
+  }
+
+  .viewer {
+    padding-inline: 10px;
+  }
+
+  .image-stage {
+    min-height: 54vh;
+  }
+
   .step-text {
     font-size: 1.05rem;
   }
+
   .nav-btn {
     font-size: 1rem;
     padding: 14px 10px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .progress-fill,
+  .nav-btn {
+    transition: none;
+  }
+
+  .image-stage.is-loading::before {
+    animation-duration: 1.8s;
   }
 }
