@@ -1,5 +1,14 @@
 const TOTAL_STEPS = 41;
 
+const SECTIONS = [
+  { start: 1, end: 10, title: "外側飾りの準備" },
+  { start: 11, end: 16, title: "内側飾りの準備" },
+  { start: 17, end: 20, title: "飾りを放射状に組み立てる" },
+  { start: 21, end: 33, title: "放射状の飾りを風鈴形にする" },
+  { start: 34, end: 37, title: "短冊を付け替える準備" },
+  { start: 38, end: 41, title: "風鈴に短冊・飾りを取り付ける" },
+];
+
 const SLIDES = [
   {
     page: "images/cover.jpg",
@@ -156,6 +165,7 @@ const SLIDES = [
 
 let current = 0;
 let touchStartX = 0;
+let lastFocusedElement = null;
 
 const stepImage = document.getElementById("stepImage");
 const imageStage = document.getElementById("imageStage");
@@ -167,6 +177,10 @@ const progressLabel = document.getElementById("progressLabel");
 const prevBtn = document.getElementById("prevBtn");
 const nextBtn = document.getElementById("nextBtn");
 const qrBlock = document.getElementById("qrBlock");
+const tocBtn = document.getElementById("tocBtn");
+const tocModal = document.getElementById("tocModal");
+const tocCloseBtn = document.getElementById("tocCloseBtn");
+const tocList = document.getElementById("tocList");
 
 function getStepLabel(slide) {
   if (slide.badge) return slide.badge;
@@ -191,6 +205,78 @@ function preload(index) {
   image.src = slide.page;
 }
 
+function buildToc() {
+  const fragment = document.createDocumentFragment();
+
+  SECTIONS.forEach((section, index) => {
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = "toc-item";
+    button.dataset.start = String(section.start);
+    button.dataset.end = String(section.end);
+    button.innerHTML = `
+      <span class="toc-number">${String(index + 1).padStart(2, "0")}</span>
+      <span class="toc-copy">
+        <strong>${section.title}</strong>
+        <small>手順 ${section.start}〜${section.end}</small>
+      </span>
+      <span class="toc-arrow" aria-hidden="true">›</span>
+    `;
+    fragment.appendChild(button);
+  });
+
+  tocList.replaceChildren(fragment);
+}
+
+function updateTocCurrent(progress) {
+  const items = tocList.querySelectorAll(".toc-item");
+
+  items.forEach((item) => {
+    const start = Number(item.dataset.start);
+    const end = Number(item.dataset.end);
+    const isCurrent = progress >= start && progress <= end;
+    item.classList.toggle("is-current", isCurrent);
+
+    if (isCurrent) item.setAttribute("aria-current", "step");
+    else item.removeAttribute("aria-current");
+  });
+}
+
+function openToc() {
+  lastFocusedElement = document.activeElement;
+  tocModal.hidden = false;
+  tocBtn.setAttribute("aria-expanded", "true");
+  document.body.classList.add("toc-open");
+  tocCloseBtn.focus();
+}
+
+function closeToc({ restoreFocus = true } = {}) {
+  tocModal.hidden = true;
+  tocBtn.setAttribute("aria-expanded", "false");
+  document.body.classList.remove("toc-open");
+
+  if (restoreFocus && lastFocusedElement instanceof HTMLElement) {
+    lastFocusedElement.focus();
+  }
+}
+
+function goToStep(stepNumber) {
+  const targetIndex = SLIDES.findIndex((slide) => (
+    Number.isInteger(slide.start)
+    && Number.isInteger(slide.end)
+    && stepNumber >= slide.start
+    && stepNumber <= slide.end
+  ));
+
+  if (targetIndex < 0) return;
+
+  current = targetIndex;
+  closeToc({ restoreFocus: false });
+  render();
+  window.scrollTo({ top: 0, behavior: "smooth" });
+  tocBtn.focus();
+}
+
 function render() {
   const slide = SLIDES[current];
   const progress = getProgress(slide);
@@ -208,6 +294,7 @@ function render() {
   prevBtn.disabled = current === 0;
   nextBtn.disabled = current === SLIDES.length - 1;
   qrBlock.style.display = current === 0 ? "flex" : "none";
+  updateTocCurrent(progress);
 
   preload(current - 1);
   preload(current + 1);
@@ -240,8 +327,25 @@ stepImage.addEventListener("error", () => {
 
 prevBtn.addEventListener("click", goPrev);
 nextBtn.addEventListener("click", goNext);
+tocBtn.addEventListener("click", openToc);
+tocCloseBtn.addEventListener("click", () => closeToc());
+
+tocModal.addEventListener("click", (event) => {
+  if (event.target.closest("[data-toc-close]")) closeToc();
+});
+
+tocList.addEventListener("click", (event) => {
+  const item = event.target.closest(".toc-item");
+  if (!item) return;
+  goToStep(Number(item.dataset.start));
+});
 
 window.addEventListener("keydown", (event) => {
+  if (!tocModal.hidden) {
+    if (event.key === "Escape") closeToc();
+    return;
+  }
+
   if (event.key === "ArrowLeft") goPrev();
   if (event.key === "ArrowRight") goNext();
 });
@@ -257,4 +361,5 @@ imageStage.addEventListener("touchend", (event) => {
   else goPrev();
 }, { passive: true });
 
+buildToc();
 render();
