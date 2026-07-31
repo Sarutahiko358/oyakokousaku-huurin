@@ -1,0 +1,56 @@
+.viewer-tools {
+  align-items: stretch;
+  justify-content: flex-start;
+  gap: 10px;
+}
+
+.current-section {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 2px;
+  padding: 7px 14px;
+  border: 1px solid rgba(23, 80, 95, 0.16);
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.72);
+  color: #17505f;
+  box-shadow: 0 4px 12px rgba(23, 80, 95, 0.07);
+}
+
+.current-section-prefix {
+  color: #5f747a;
+  font-size: 0.7rem;
+  font-weight: bold;
+  line-height: 1.2;
+}
+
+.current-section strong {
+  overflow-wrap: anywhere;
+  font-size: 0.92rem;
+  line-height: 1.35;
+}
+
+@media (max-width: 420px) {
+  .viewer-tools {
+    gap: 8px;
+  }
+
+  .toc-btn {
+    flex: 0 0 auto;
+    padding-inline: 13px;
+  }
+
+  .current-section {
+    padding: 6px 10px;
+  }
+
+  .current-section-prefix {
+    font-size: 0.66rem;
+  }
+
+  .current-section strong {
+    font-size: 0.84rem;
+  }
+}
